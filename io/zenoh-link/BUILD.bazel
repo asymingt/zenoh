@@ -35,5 +35,18 @@ rust_library(
         "//io/zenoh-links/zenoh-link-unixsock_stream",
         "//io/zenoh-links/zenoh-link-vsock",
         "//io/zenoh-links/zenoh-link-ws",
-    ]
+    ],
+    crate_features = [
+        "shared-memory",
+        "transport_quic",
+        "transport_quic_datagram",
+        "transport_serial",
+        "transport_tcp",
+        "transport_tls",
+        "transport_udp",
+        "transport_unixpipe",
+        "transport_unixsock-stream",
+        "transport_vsock",
+        "transport_ws",
+    ],
 )

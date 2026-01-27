@@ -13,7 +13,7 @@
 # limitations under the License.
 
 load("@crates_zenoh//:defs.bzl", "aliases", "all_crate_deps")
-load("@rules_rust//rust:defs.bzl", "rust_library")
+load("@rules_rust//rust:defs.bzl", "rust_library", "rust_test")
 load("@rules_rust//cargo:defs.bzl", "cargo_build_script")
 
 package(default_visibility = ["//visibility:public"])
@@ -41,6 +41,28 @@ rust_library(
         "//plugins/zenoh-plugin-trait",
         "//zenoh",
     ],
-    crate_features = ["default"],
+    crate_features = [
+        "default",
+        "dynamic-plugin",
+    ],
     proc_macro_deps = all_crate_deps(proc_macro = True),
 )
+
+[
+    rust_test(
+        name = name,
+        srcs = ["tests/{}.rs".format(name)],
+        deps = all_crate_deps(normal = True, normal_dev = True) + [
+            ":zenoh-plugin-storage-manager",
+            "//commons/zenoh-util",
+            "//plugins/zenoh-backend-traits",
+            "//plugins/zenoh-plugin-trait",
+            "//zenoh",
+        ],
+        proc_macro_deps = all_crate_deps(proc_macro = True),
+    )
+    for name in [
+        "operations",
+        "wildcard",
+    ]
+]

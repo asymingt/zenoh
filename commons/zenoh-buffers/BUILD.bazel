@@ -13,7 +13,7 @@
 # limitations under the License.
 
 load("@crates_zenoh//:defs.bzl", "aliases", "all_crate_deps")
-load("@rules_rust//rust:defs.bzl", "rust_library")
+load("@rules_rust//rust:defs.bzl", "rust_library", "rust_test")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -25,6 +25,15 @@ rust_library(
     ],
     crate_features = [
         "shared-memory",
-        "std"
+        "std",
+        "test",
+    ],
+)
+
+rust_test(
+    name = "zenoh-buffers-test",
+    srcs = glob(["tests/**/*.rs"]),
+    deps = all_crate_deps(normal_dev = True) + [
+        ":zenoh-buffers",
     ],
 )

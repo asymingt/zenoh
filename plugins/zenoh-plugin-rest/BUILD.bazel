@@ -13,7 +13,7 @@
 # limitations under the License.
 
 load("@crates_zenoh//:defs.bzl", "aliases", "all_crate_deps")
-load("@rules_rust//rust:defs.bzl", "rust_library")
+load("@rules_rust//rust:defs.bzl", "rust_binary", "rust_library")
 load("@rules_rust//cargo:defs.bzl", "cargo_build_script")
 
 package(default_visibility = ["//visibility:public"])
@@ -38,6 +38,15 @@ rust_library(
     deps = all_crate_deps(normal = True) + [
         ":build_script",
         "//plugins/zenoh-plugin-trait",
+        "//zenoh",
+    ],
+)
+
+rust_binary(
+    name = "z_serve_sse",
+    srcs = glob(["examples/z_serve_sse.rs"]),
+    deps = all_crate_deps(normal = True, normal_dev = True) + [
+        ":zenoh-plugin-rest",
         "//zenoh",
     ],
 )

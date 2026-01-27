@@ -13,7 +13,7 @@
 # limitations under the License.
 
 load("@crates_zenoh//:defs.bzl", "aliases", "all_crate_deps")
-load("@rules_rust//rust:defs.bzl", "rust_library")
+load("@rules_rust//rust:defs.bzl", "rust_library", "rust_test")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -34,3 +34,24 @@ rust_library(
         "//commons/zenoh-macros",
     ],
 )
+
+
+[
+    rust_test(
+        name = name,
+        srcs = ["tests/{}.rs".format(name)],
+        deps = all_crate_deps(normal = True, normal_dev = True) + [
+            ":zenoh-ext",
+            "//commons/zenoh-config",
+            "//commons/zenoh-util",
+            "//zenoh",
+        ],
+        proc_macro_deps = all_crate_deps(proc_macro = True) + [
+            "//commons/zenoh-macros",
+        ],
+    )
+    for name in [
+        "advanced",
+        "liveliness"
+    ]
+]
