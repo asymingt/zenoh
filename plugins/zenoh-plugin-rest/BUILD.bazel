@@ -13,7 +13,7 @@
 # limitations under the License.
 
 load("@crates_zenoh//:defs.bzl", "aliases", "all_crate_deps")
-load("@rules_rust//rust:defs.bzl", "rust_binary", "rust_library")
+load("@rules_rust//rust:defs.bzl", "rust_binary", "rust_library", "rust_shared_library")
 load("@rules_rust//cargo:defs.bzl", "cargo_build_script")
 
 package(default_visibility = ["//visibility:public"])
@@ -32,6 +32,19 @@ cargo_build_script(
     deps = all_crate_deps(build = True),
 )
 
+rust_shared_library(
+    name = "zenoh-plugin-rest_so",
+    srcs = glob(["src/**/*.rs"]),
+    deps = all_crate_deps(normal = True) + [
+        ":build_script",
+        "//plugins/zenoh-plugin-trait",
+        "//zenoh",
+    ],
+    crate_features = ["dynamic_plugin"],
+)
+
+# Executable
+
 rust_library(
     name = "zenoh-plugin-rest",
     srcs = glob(["src/**/*.rs"]),
@@ -40,6 +53,7 @@ rust_library(
         "//plugins/zenoh-plugin-trait",
         "//zenoh",
     ],
+    crate_features = ["dynamic_plugin"],
 )
 
 rust_binary(

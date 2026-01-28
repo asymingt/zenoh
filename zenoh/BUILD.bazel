@@ -27,7 +27,8 @@ cargo_build_script(
 rust_library(
     name = "zenoh",
     srcs = glob(["src/**/*.rs"]),
-    deps = all_crate_deps(normal = True) + [":build_script"] + [
+    deps = all_crate_deps(normal = True) + [
+        ":build_script",
         "//commons/zenoh-buffers",
         "//commons/zenoh-codec",
         "//commons/zenoh-collections",

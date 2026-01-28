@@ -13,16 +13,28 @@
 # limitations under the License.
 
 load("@crates_zenoh//:defs.bzl", "aliases", "all_crate_deps")
-load("@rules_rust//rust:defs.bzl", "rust_library")
+load("@rules_rust//rust:defs.bzl", "rust_library", "rust_shared_library")
 
 package(default_visibility = ["//visibility:public"])
 
 rust_library(
-    name = "zenoh-plugin-example",
+    name = "zenoh-plugin-example-lib",
     srcs = glob(["src/**/*.rs"]),
     deps = all_crate_deps(normal = True) + [
         "//commons/zenoh-util",
         "//plugins/zenoh-plugin-trait",
         "//zenoh",
     ],
+)
+
+rust_shared_library(
+    name = "zenoh-plugin-example_so",
+    srcs = glob(["src/**/*.rs"]),
+    deps = all_crate_deps(normal = True) + [
+        "//commons/zenoh-util",
+        "//plugins/zenoh-plugin-trait",
+        "//zenoh",
+    ],
+    crate_features = ["dynamic_plugin"],
+    alwayslink = True,
 )

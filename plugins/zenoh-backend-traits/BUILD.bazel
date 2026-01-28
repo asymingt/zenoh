@@ -26,6 +26,5 @@ rust_library(
         "//plugins/zenoh-plugin-trait",
         "//zenoh",
     ],
-    crate_features = ["default"],
     proc_macro_deps = all_crate_deps(proc_macro = True),
 )
