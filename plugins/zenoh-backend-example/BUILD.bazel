@@ -18,7 +18,7 @@ load("@rules_rust//rust:defs.bzl", "rust_shared_library")
 package(default_visibility = ["//visibility:public"])
 
 rust_shared_library(
-    name = "zenoh-backend-example_so",
+    name = "zenoh_backend_example",
     srcs = glob(["src/**/*.rs"]),
     deps = all_crate_deps(normal = True) + [
         "//commons/zenoh-util",

@@ -28,7 +28,7 @@ rust_library(
 )
 
 rust_shared_library(
-    name = "zenoh-plugin-example_so",
+    name = "zenoh_plugin_example",
     srcs = glob(["src/**/*.rs"]),
     deps = all_crate_deps(normal = True) + [
         "//commons/zenoh-util",

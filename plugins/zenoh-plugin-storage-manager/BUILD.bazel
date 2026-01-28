@@ -32,7 +32,7 @@ cargo_build_script(
 )
 
 rust_shared_library(
-    name = "zenoh-plugin-storage-manager_so",
+    name = "zenoh_plugin_storage_manager",
     srcs = glob(["src/**/*.rs"]),
     deps = all_crate_deps(normal = True) + [
         ":build_script",

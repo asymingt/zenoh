@@ -33,7 +33,7 @@ cargo_build_script(
 )
 
 rust_shared_library(
-    name = "zenoh-plugin-rest_so",
+    name = "zenoh_plugin_rest",
     srcs = glob(["src/**/*.rs"]),
     deps = all_crate_deps(normal = True) + [
         ":build_script",
