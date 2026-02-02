@@ -35,7 +35,6 @@ rust_library(
     ],
 )
 
-
 [
     rust_test(
         name = name,
